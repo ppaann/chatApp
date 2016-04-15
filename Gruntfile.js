@@ -20,8 +20,7 @@ module.exports = function(grunt) {
     bowerInstall:{
       dev: {
         src: [
-          'index.html',
-          'styles/scss/styles.scss'
+          'index.html'
         ]
       }
     },
@@ -30,9 +29,10 @@ module.exports = function(grunt) {
     },
     compass: {
       options: {
-        importPath:['bower_components/bootstrap-sass/assets/stylesheets'],
+        importPath: ['bower_components/bootstrap-sass/assets/stylesheets'],
         sassDir: 'styles/scss',
         imageDir: 'styles/images',
+        fontsDir: 'styles/fonts',
         force: true,
         //raw: 'Encoding.default_external = \'utf-8\'\n',
       },
@@ -54,6 +54,14 @@ module.exports = function(grunt) {
       },
     },
     copy: {
+      init: {
+        files: [{
+          cwd: 'bower_components/bootstrap-sass/assets/fonts/bootstrap',
+          src: '**',
+          dest: 'styles/fonts/',
+          expand: true
+        }]
+      },
       dist: {
         files: [{
           src: '**',
@@ -69,23 +77,11 @@ module.exports = function(grunt) {
           flatten: true,
           dot: true,
           dest: 'dist/styles/fonts',
-        },
-        {
-          src: 'libs/jQuery.mmenu-master/dist/js/jquery.mmenu.all.min.js',
-          dest: 'dist/'
-        },
-        {
-          src: 'libs/jQuery.mmenu-master/dist/css/jquery.mmenu.all.css',
-          dest: 'dist/'
-        },
+        }
         ]
       },
     },
     includeSource: {
-      options: {
-        basePath: '',
-        baseUrl: ''
-      },
       dev: {
         files: {
           'index.html': 'index.html'
@@ -107,7 +103,7 @@ module.exports = function(grunt) {
         tasks: ['compass:dev']
       },
       includeSource: {
-        files: 'app/js/**/*.js',
+        files: 'app/**/*.js',
         tasks: ['includeSource'],
         options: {
           event: ['added', 'deleted']
@@ -126,7 +122,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-include-source'); // add js files to html (IncludeSource, watch/includeSource)
   grunt.loadNpmTasks('grunt-contrib-copy');   // copy file and folder (copy)
 
+  grunt.registerTask('init', ['copy:init', 'bowerInstall']);  // initial the working environment, only need run once
   grunt.registerTask('dist', ['clean:build', 'bower:dist', 'includeSource', 'compass:dist', 'copy:dist']);
-  grunt.registerTask('build', ['clean:build', 'compass:dev', 'includeSource', 'bower:dist',]);
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('build', ['clean:build', 'compass:dev', 'includeSource', 'bowerInstall']);
+  grunt.registerTask('default', ['compass:dev', 'watch']);
 };

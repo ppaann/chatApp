@@ -1,5 +1,5 @@
 {
-  "name": "Chat App",
+  "name": "ChatApp",
   "version": "0.0.0",
   "repository": "ppaann.io/chatApp",
   "description": "Simple AngularJS Chat application",
@@ -8,7 +8,7 @@
     "bower": ""
   },
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "node node_modules/bower/bin/bower install"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
