@@ -1,0 +1,10 @@
+{
+  "name": "chatapp-bower",
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-bootstrap": "~1.0.3",
+    "bootstrap-sass": "~3.3.6",
+    "angular-animate": "1.4.9"
+  }
+}
