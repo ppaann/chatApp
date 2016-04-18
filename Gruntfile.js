@@ -82,6 +82,10 @@ module.exports = function(grunt) {
       },
     },
     includeSource: {
+      options: {
+        basePath: '',
+        baseUrl: ''
+      },
       dev: {
         files: {
           'index.html': 'index.html'
@@ -103,7 +107,7 @@ module.exports = function(grunt) {
         tasks: ['compass:dev']
       },
       includeSource: {
-        files: 'app/**/*.js',
+        files: 'app/{,*/}*.js',
         tasks: ['includeSource'],
         options: {
           event: ['added', 'deleted']
@@ -124,6 +128,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('init', ['copy:init', 'bowerInstall']);  // initial the working environment, only need run once
   grunt.registerTask('dist', ['clean:build', 'bower:dist', 'includeSource', 'compass:dist', 'copy:dist']);
-  grunt.registerTask('build', ['clean:build', 'compass:dev', 'includeSource', 'bowerInstall']);
+  grunt.registerTask('build', ['clean:build', 'includeSource', 'bowerInstall', 'copy:init', 'compass:dev',]);
   grunt.registerTask('default', ['compass:dev', 'watch']);
 };

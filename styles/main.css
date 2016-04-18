@@ -7263,5 +7263,12 @@ button.close {
   /* line 18, ../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/mixins/_responsive-visibility.scss */
   .hidden-print {
     display: none !important; } }
+/*
+* Chat application styles
+*/
+/* line 1, scss/_chat-room.scss */
+.chat-room {
+  display: flex;
+  flex-direction: column; }
 
 /*# sourceMappingURL=main.css.map */
