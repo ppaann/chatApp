@@ -129,5 +129,5 @@ module.exports = function(grunt) {
   grunt.registerTask('init', ['copy:init', 'bowerInstall']);  // initial the working environment, only need run once
   grunt.registerTask('dist', ['clean:build', 'bower:dist', 'includeSource', 'compass:dist', 'copy:dist']);
   grunt.registerTask('build', ['clean:build', 'includeSource', 'bowerInstall', 'copy:init', 'compass:dev',]);
-  grunt.registerTask('default', ['compass:dev', 'watch']);
+  grunt.registerTask('default', ['compass:dev', 'includeSource', 'watch']);
 };

@@ -3,6 +3,6 @@
 */
 (function() {
   'use strict';
-  
-   angular.module('Chat', ['ngWebSocket']);
+
+   angular.module('Chat', ['ngWebSocket', 'ngResource']);
 })();

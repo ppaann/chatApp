@@ -1,3 +1,6 @@
+/*
+* WS service
+*/
 (function(){
   'use strict';
 
