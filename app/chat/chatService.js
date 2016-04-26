@@ -65,13 +65,10 @@
             }
           });
           ws.onError(function(event) {
-            // console.log('connection Error', event);
           });
           ws.onClose(function(event) {
-            // console.log('connection Closed', event);
           });
           ws.onOpen(function() {
-            // console.log('connected');
             ws.send('Hello');
           });
 
