@@ -1,0 +1,36 @@
+#user-page{
+  width: 300px;
+  height: 270px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
+  background-color: $btn-success-bg; 
+  color: white;
+
+  h2{
+    margin-left: 10%;
+    width: 80%;
+    margin-bottom: 20px;
+  }
+  form{
+    width: 80%;
+    margin: auto;
+    button{
+      border-color: white;
+      @include center-block;
+    }
+  }
+  .btn.btn-link{
+    color: white;
+    @include center-block;
+    margin-top: 20px;
+  }
+  .error-msg {
+    margin: 0 10%;
+    height: 30px;
+  }
+}

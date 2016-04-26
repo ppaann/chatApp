@@ -7271,4 +7271,50 @@ button.close {
   display: flex;
   flex-direction: column; }
 
+/* line 1, scss/_user-page.scss */
+#user-page {
+  width: 300px;
+  height: 270px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #5cb85c;
+  color: white; }
+  /* line 14, scss/_user-page.scss */
+  #user-page h2 {
+    margin-left: 10%;
+    width: 80%;
+    margin-bottom: 20px; }
+  /* line 19, scss/_user-page.scss */
+  #user-page form {
+    width: 80%;
+    margin: auto; }
+    /* line 22, scss/_user-page.scss */
+    #user-page form button {
+      border-color: white;
+      display: block;
+      margin-left: auto;
+      margin-right: auto; }
+  /* line 27, scss/_user-page.scss */
+  #user-page .btn.btn-link {
+    color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px; }
+  /* line 32, scss/_user-page.scss */
+  #user-page .error-msg {
+    margin: 0 10%;
+    height: 30px; }
+
+/* line 1, scss/_shared.scss */
+.btn-close {
+  position: absolute;
+  top: 5px;
+  right: 5px; }
+
 /*# sourceMappingURL=main.css.map */
