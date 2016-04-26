@@ -1,7 +1,8 @@
 Simple chat application 
 
 -------------------------
-Server bug fixed:
+Server bug fixed: 
+  ( files are in folder : serverFix\ )
 
 1. drop unidentified user crashs
 2. change user's name onfly
@@ -14,4 +15,5 @@ Application feature list
 2. Change the user name when online
 3. Check the chat history
 4. Show the message only from selected user
+
 
