@@ -18,7 +18,7 @@
            //    }
            //  }).get(); // call 'get' action immediately
          // method 2 ->
-          return $resource(pathToUsers).get();
+          return $resource(pathToUsers);
       },
       getHistory: function() {
         return $resource(pathToHistory).get();

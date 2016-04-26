@@ -1,0 +1,20 @@
+.navbar{
+  #nav-title{
+    min-width: 100px;
+    float: left;
+  }
+  #nav-name{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: calc(100vw - 240px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-aligh: center;
+  }
+  #nav-btns{
+    width: 85px;
+    margin: 0;
+  }
+  
+}

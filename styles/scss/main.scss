@@ -5,6 +5,9 @@
 /*
 * Chat application styles
 */
-@import "chat-room";
-@import "user-page";
 @import "shared";
+
+@import "chat-room";
+@import "history-popup";
+@import "navbar";
+@import "user-popup";

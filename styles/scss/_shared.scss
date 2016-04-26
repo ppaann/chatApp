@@ -1,5 +1,26 @@
 .btn-close {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 15px;
+  right: 15px;
+}
+.overlay{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba( 0,0,0,0.5);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+}
+@mixin center-dialog(){
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
 }

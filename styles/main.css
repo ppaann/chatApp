@@ -7266,15 +7266,38 @@ button.close {
 /*
 * Chat application styles
 */
-/* line 1, scss/_chat-room.scss */
-.chat-room {
-  display: flex;
-  flex-direction: column; }
+/* line 1, scss/_shared.scss */
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 15px; }
 
-/* line 1, scss/_user-page.scss */
-#user-page {
-  width: 300px;
-  height: 270px;
+/* line 6, scss/_shared.scss */
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  z-index: 999; }
+
+/* line 2, scss/_chat-room.scss */
+.chat-room .sender {
+  font-weight: bold; }
+/* line 6, scss/_chat-room.scss */
+.chat-room .server-msg span {
+  color: #777777; }
+
+/* line 11, scss/_chat-room.scss */
+#messageContainer {
+  height: calc(100vh - 120px); }
+
+/* line 2, scss/_history-popup.scss */
+#history-popup {
+  z-index: 1000;
   position: absolute;
   top: 0;
   left: 0;
@@ -7282,39 +7305,70 @@ button.close {
   bottom: 0;
   margin: auto;
   border-radius: 5px;
+  height: 80%;
+  width: 85%;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  overflow-y: auto; }
+
+/* line 2, scss/_navbar.scss */
+.navbar #nav-title {
+  min-width: 100px;
+  float: left; }
+/* line 6, scss/_navbar.scss */
+.navbar #nav-name {
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 10px;
+  max-width: calc(100vw - 240px);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-aligh: center; }
+/* line 15, scss/_navbar.scss */
+.navbar #nav-btns {
+  width: 85px;
+  margin: 0; }
+
+/* line 1, scss/_user-popup.scss */
+#user-popup {
+  width: 300px;
+  height: 270px;
   background-color: #5cb85c;
-  color: white; }
-  /* line 14, scss/_user-page.scss */
-  #user-page h2 {
+  color: white;
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px; }
+  /* line 8, scss/_user-popup.scss */
+  #user-popup h2 {
     margin-left: 10%;
     width: 80%;
     margin-bottom: 20px; }
-  /* line 19, scss/_user-page.scss */
-  #user-page form {
+  /* line 13, scss/_user-popup.scss */
+  #user-popup form {
     width: 80%;
     margin: auto; }
-    /* line 22, scss/_user-page.scss */
-    #user-page form button {
+    /* line 16, scss/_user-popup.scss */
+    #user-popup form button {
       border-color: white;
       display: block;
       margin-left: auto;
       margin-right: auto; }
-  /* line 27, scss/_user-page.scss */
-  #user-page .btn.btn-link {
+  /* line 21, scss/_user-popup.scss */
+  #user-popup .btn.btn-link {
     color: white;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px; }
-  /* line 32, scss/_user-page.scss */
-  #user-page .error-msg {
+  /* line 26, scss/_user-popup.scss */
+  #user-popup .error-msg {
     margin: 0 10%;
     height: 30px; }
-
-/* line 1, scss/_shared.scss */
-.btn-close {
-  position: absolute;
-  top: 5px;
-  right: 5px; }
 
 /*# sourceMappingURL=main.css.map */

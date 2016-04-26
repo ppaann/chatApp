@@ -1,4 +1,13 @@
 .chat-room{
-  display: flex;
-  flex-direction: column;
+  .sender {
+    font-weight: bold;
+  }
+  .server-msg{
+    span{
+      color: $gray-light;
+    }
+  }
+}
+#messageContainer {
+  height: calc(100vh - 120px);
 }

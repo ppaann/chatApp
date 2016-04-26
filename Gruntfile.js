@@ -92,6 +92,9 @@ module.exports = function(grunt) {
         }
       }
     },
+    jshint: {
+      all: ['Gruntfile.js', 'app/**/*.js']
+    },
     watch: {
       options: {
         interrupt: true,

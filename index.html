@@ -31,87 +31,110 @@
     <!-- TODO: nav goes to own directive -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-        <div class="navbar-header">
+        <div id="nav-title" class="navbar-header">
           <span class="navbar-brand">ChatApp</span> 
         </div>
-        <p class="navbar-text">{{chatCtrl.username}}</p>
-        <span class="pull-right nav navbar-nav">
+        <div id="nav-name" class="navbar-text">{{chatCtrl.username}}</div>
+        <div id="nav-btns" class="pull-right nav navbar-nav">
           <button class="btn btn-default navbar-btn" ng-click="chatCtrl.openUserPopup()">
             <span class="glyphicon glyphicon-user"></span>
           </button>
-          <button class="btn btn-default navbar-btn">
+          <button class="btn btn-default navbar-btn" ng-click="chatCtrl.openHistoryPopup()">
             <span class="glyphicon glyphicon-time"></span>
           </button>
-        </span>
+        </div>
       </div>
     </nav>
 
-
-    <!-- User session : login/out-->
-    <div id="user-page" class="container" ng-show="chatCtrl.showUserPopup">
-      <div class="row"><h2>Join the chat</h2> <button class="btn btn-success btn-close" ng-click="chatCtrl.closeUserPopup()"><span class="glyphicon glyphicon-remove"></span></button></div>
-      <div class="row">
-        <div class="error-msg">
-          <div class="alert-danger" ng-if="chatCtrl.nickNameError.length > 0">{{chatCtrl.nickNameError[0]}}</div>
-        </div>
-        <form ng-submit="chatCtrl.createUser()" name="userForm">
-          <!-- Name chack : too long or duplicate name -->
-          <div class="form-group">
-            <input id="usernameInput" type="text" class="form-control" placeholder="Your name..." ng-model="chatCtrl.username">
-          </div>
-          <button class="btn btn-success" id="btnJoin" type="submit">Join Chat</button>
-        </form>
-      </div>
-      <div class="row"><button class="btn btn-link" ng-click="chatCtrl.closeUserPopup()">Not now</button> </div>
-    </div>
-
     <!-- Chat container -->
-    <div class="row">
+    <div id="messageContainer" class="row">
       <div class="chat-room">
         <ul>
-          <li ng-repeat="message in chatCtrl.messages">Message from "{{message.origin}}" says: {{message.content}} </li>
+          <li ng-repeat="message in chatCtrl.messages" ng-class="{'server-msg': message.origin == 'server'}">
+            <span class="sender">{{message.origin}} :</span>
+            <span class="message-content">{{message.content}} </span>
+          </li>
         </ul>
       </div>
     </div>
 
-    <!-- Ínput sessopm -->
-    <div class="row">
-      <form ng-submit="sendMessage()" class="form-inline">
-        <div class="form-group">
-          <input id="messageInput" type="text" class="form-control" placeholder="Input message..." ng-model="chatCtrl.message">
+    <!-- Ínput session -->
+    <div id="sendMessageContainer" class="row">
+      <form ng-submit="sendMessage()" class="col-xs-12">
+        <div class="input-group">
+          <input id="messageInput" type="text" class="form-control" placeholder="Input message..." ng-model="chatCtrl.message" ng-disabled="chatCtrl.canChat()">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">
+              <span class="glyphicon glyphicon-send"></span>
+            </button>
+          </span>
         </div>
-        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send"></span> Send</button>
       </form>
     </div>
 
-    <div class="row">
-      <button class="btn btn-primary" ng-click="getAllUsers()">Get All users</button>
-      <ul>
-        <li ng-repeat = "user in chatCtrl.allUsers.data">
-          {{user.nick}}: {{user.online}}
-        </li>
-      </ul>
+    <!-- Userpopup : login/out-->
+    <!-- TODO: move to directive -->
+    <div ng-show="chatCtrl.showUserPopup">
+      <div class="overlay"></div>
+      <div id="user-popup" class="container">
+        <div class="row">
+          <h2>Join the chat</h2>
+          <button type="button" class="btn-close close" ng-click="chatCtrl.closeUserPopup()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row">
+          <div class="error-msg">
+            <div class="alert-danger" ng-if="chatCtrl.nickNameError.length > 0">{{chatCtrl.nickNameError[0]}}</div>
+          </div>
+          <form ng-submit="chatCtrl.createUser()" name="userForm">
+            <!-- Name chack : too long or duplicate name -->
+            <div class="form-group">
+              <input id="usernameInput" type="text" class="form-control" placeholder="Your name..." ng-model="chatCtrl.username">
+            </div>
+            <button class="btn btn-success" id="btnJoin" type="submit">Join Chat</button>
+          </form>
+        </div>
+        <div class="row">
+          <button class="btn btn-link" ng-click="chatCtrl.closeUserPopup()">Not now</button>
+        </div>
+      </div>
     </div>
 
-    <div class="row">
-      <button class="btn btn-primary" ng-click="getAllHistory()">Get history</button>
-      <select name="userSelect" id="userSelect" ng-model="selectedUser" ng-options="user.nick for user in chatCtrl.allUsers.data">Select user</select>
-      <table id="history">
-        <tr>
-          <th>Time</th>
-          <th>Sender</th>
-          <th>Message</th>
-        </tr>
-        <tr data-ng-repeat = "item in chatCtrl.history.data | filter:excludeServerMessage | filter: selectedUser.nick">
-          <td>{{item.timestamp | date:'yyyy-MM-dd HH:mm:ss'}} </td>
-          <td>{{item.from}}</td>
-          <td>{{item.msg}}</td>
-        </tr>
-      </table>
+    <!-- All users and history session -->
+    <!-- TODO: move to own directive -->
+    <!-- TODO: style -->
+    <div ng-show="chatCtrl.showHistoryPopup" >
+      <div class="overlay"></div>
+      <div id="history-popup" class="container">
+        <div class="row">
+          <h3>Chat History</h3>
+          <button type="button" class="btn-close close" ng-click="chatCtrl.closeHistoryPopup()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="row">
+          <select name="userSelect" id="userSelect" ng-model="selectedUser.from">Select user
+            <option value="">---Select Sender---</option>
+            <option ng-repeat = "user in chatCtrl.allUsers">{{user.nick}}</option>
+          </select>
+
+          <table id="history" class="table">
+            <tr>
+              <th>Time</th>
+              <th>Sender</th>
+              <th>Message</th>
+            </tr>
+            <tr data-ng-repeat = 'item in chatCtrl.history.data | filter: excludeServerMessage | filter: selectedUser'>
+              <td>{{item.timestamp | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+              <td>{{item.from}}</td>
+              <td>{{item.msg}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  
-  </div>
-  
 </body>
 </html>

@@ -15,35 +15,84 @@
     self.allUsers = [];                 // All users
     self.history = [];                  // Chat history
     
-    self.messages = chatService.messages;// Messages received from server
-    self.usernameRequest = false;
-
-    // create user
-    self.createUser = function() {
-      chatService.createUser(self.username);
-      self.usernameRequest = true;
-    };
+    self.messages = chatService.messages;// Messages received from serverser
 
     /*
     * Chat mesasge
     */
     $scope.sendMessage = function() {
-      var msg = {
-        'from': self.username,
-        'message': self.message
-      };
-      chatService.send(JSON.stringify(msg));
+      chatService.sendMessage(self.message);
+      self.message = null;
     };
 
+    /*
+    * check if the current is registered and online
+    */
+    self.canChat = function() {
+      var goChat = false;
+      // TODO: this should check from the server that if the current user is register and online
+      // --- server check is not yet stright forward 
+      goChat = self.username === null || !self.usernameRegistered;
+      return goChat;
+    };
+
+
+    /*
+    * >>>>>>>>>>>>>>>>>>>
+    * TODO: move code below to its userpopup directive
+    * TODO: name change duplicate error case needs more 
+    */
+    self.nickNameError = chatService.nickError;          // nick name error TODO: own scope
+    self.showUserPopup = true;
+    self.usernameRegistered = false;
+    // create user
+    self.createUser = function() {
+      chatService.createUser(self.username);
+      self.usernameRegistered = true;
+    };
+    self.closeUserPopup = function() {
+      self.showUserPopup = false;
+    };
+    self.openUserPopup = function() {
+      self.showUserPopup = true;
+    };
+    self.finishUserName = function() {
+      if(self.usernameRegistered) {
+        self.closeUserPopup();
+      }
+    };
+    $scope.$on('newUserJoined', function(event) {
+      self.finishUserName();
+    });
+    $scope.$on('userNameChanged', function(event) {
+      self.finishUserName();
+    });
+    /*
+    * End of userpop 
+    * <<<<<<<<<<<<<<<<<<<
+    */
+
+    /*
+    * >>>>>>>>>>>>>>>>>>>>
+    * TODO: move to history directive
+    */
+    self.showHistoryPopup = false;
+    self.openHistoryPopup = function() {
+      self.showHistoryPopup = true;
+      $scope.getAllUsers();
+      $scope.getAllHistory();
+    };
+    self.closeHistoryPopup = function() {
+      self.showHistoryPopup = false;
+    };
     /*
     * Get all users from server
     */
     $scope.getAllUsers = function() {
-      self.allUsers =historyService.getAllUsers().then(function(json) {
-        return json;
+      historyService.getAllUsers().get( function(resource) {
+        self.allUsers = resource.data;
       });
     };
-
     /*
     * Get history data from server
     */
@@ -56,26 +105,8 @@
     };
 
     /*
-    * TODO: move code below to its own service and scope
+    * End of history directive
+    * <<<<<<<<<<<<<<<<<<<<
     */
-    self.nickNameError = chatService.nickError;          // nick name error TODO: own scope
-    self.showUserPopup = true;
-    self.closeUserPopup = function() {
-      self.showUserPopup = false;
-    };
-    self.openUserPopup = function() {
-      self.showUserPopup = true;
-    };
-    self.finishUserName = function() {
-      if(self.usernameRequest) {
-        self.closeUserPopup();
-      }
-    };
-    $scope.$on('newUserJoined', function(event) {
-      self.finishUserName();
-    });
-    $scope.$on('userNameChanged', function(event) {
-      self.finishUserName();
-    });
   });
 })();

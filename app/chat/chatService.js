@@ -15,7 +15,6 @@
           var currenetUsername = null;
 
           ws.onMessage(function(message) {
-            console.log('onMessage', message);
             var msg = {};
             msg.type = "text"; // default message type
             nickError.splice(0, nickError.length);    // empty the error array
@@ -30,10 +29,6 @@
               else {
                 // the data is a JSON 
                 var data =JSON.parse(message.data);
-                if(typeof data.message !== "undefined") {
-                  // normal message
-                  msg.content = data.message;
-                }
                 if(typeof data.error !== "undefined") {
                   // error message
                   msg.from = "server";
@@ -45,6 +40,10 @@
                   if(_.startsWith(msg.content, 'Nick')){
                     nickError.push(msg.content);
                   }
+                }
+                if(typeof data.message !== "undefined") {
+                  // normal message
+                  msg.content = data.message;
                 }
                 if (data.from === "_server") {
                   msg.origin = "server";
@@ -66,15 +65,15 @@
             }
           });
           ws.onError(function(event) {
-            console.log('connection Error', event);
+            // console.log('connection Error', event);
           });
           ws.onClose(function(event) {
-            console.log('connection Closed', event);
+            // console.log('connection Closed', event);
           });
           ws.onOpen(function() {
-            console.log('connected');
+            // console.log('connected');
             ws.send('Hello');
-          })
+          });
 
           var service = {
             messages: messages,
@@ -86,8 +85,11 @@
               var path = '/nick ';
               currenetUsername = username;
               ws.send(path + username);
+            },
+            sendMessage: function(msg){
+              ws.send(JSON.stringify(msg));
             }
-          }
+          };
           return service;
          });
 })();
